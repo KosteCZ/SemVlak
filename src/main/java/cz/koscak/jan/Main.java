@@ -10,13 +10,13 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 900;
-    private int rocketSpeed = 0;
     private boolean gamePaused = true;  // Game starts in a paused state
     private boolean gameWon = false;  // Track if the rocket lands on the Moon
     private boolean gameOver = false;  // Track if the game is over (exploded or landed on Moon)
-    private Timer timer;
-    private Images images;
+    private final Timer timer;
+    private final Images images;
     private java.util.List<Car> listOfCars;
+    private java.util.List<TrafficLight> listOfTrafficLights;
 
     // Moon position
     private int moonX = WIDTH / 2 - 50;
@@ -45,6 +45,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
         images = new Images();
         loadCars();
+        loadTrafficLights();
     }
 
     private void loadCars() {
@@ -53,6 +54,14 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         listOfCars.add(new Car(125, 300, 0, -1));
         listOfCars.add(new Car(100, 600, 0, 1));
         listOfCars.add(new Car(125, 600, 0, -1));
+    }
+
+    private void loadTrafficLights() {
+        listOfTrafficLights = new ArrayList<>();
+        listOfTrafficLights.add(new TrafficLight(60, 352, TrafficLight.Light.GREEN));
+        listOfTrafficLights.add(new TrafficLight(160, 352, TrafficLight.Light.RED));
+        listOfTrafficLights.add(new TrafficLight(60, 452, TrafficLight.Light.RED));
+        listOfTrafficLights.add(new TrafficLight(160, 452, TrafficLight.Light.GREEN));
     }
 
     public static void main(String[] args) {
@@ -75,11 +84,17 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         g.drawLine(100, 200, 100, HEIGHT - 200);
         g.drawLine(150, 200, 150, HEIGHT - 200);*/
 
-        g.drawImage(getImage(Image.TRAFFIC_LIGHTS_RED), 60, 200, this);
-        g.drawImage(getImage(Image.TRAFFIC_LIGHTS_RED_YELLOW), 160, 200, this);
 
-        g.drawImage(getImage(Image.TRAFFIC_LIGHTS_YELLOW), 60, 650, this);
-        g.drawImage(getImage(Image.TRAFFIC_LIGHTS_GREEN), 160, 650, this);
+        /*g.drawImage(getImage(Image.TRAFFIC_LIGHTS_RED), 60, 352, this);
+        g.drawImage(getImage(Image.TRAFFIC_LIGHTS_RED_YELLOW), 160, 352, this);
+
+        g.drawImage(getImage(Image.TRAFFIC_LIGHTS_YELLOW), 60, 452, this);
+        g.drawImage(getImage(Image.TRAFFIC_LIGHTS_GREEN), 160, 452, this);*/
+
+        for (TrafficLight trafficLight : listOfTrafficLights) {
+            g.drawImage(getImage(trafficLight.getImage()), trafficLight.getX(), trafficLight.getY(), this);
+        }
+
 
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 200, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 250, this);
@@ -101,6 +116,9 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         for (Car car : listOfCars) {
             g.drawImage(getImage(Image.CAR_1), car.getX(), car.getY(), this);
         }
+
+        g.drawImage(getImage(Image.TUNNEL_VERTICAL), 100, 150, this);
+        g.drawImage(getImage(Image.TUNNEL_VERTICAL), 100, 700, this);
 
         // Draw rocket (more realistic rocket design)
         //drawRocket(g, ROCKET_X, rocketY);
@@ -142,7 +160,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         return images.get(image);
     }
 
-    private void drawRocket(Graphics g, int x, int y) {
+    /*private void drawRocket(Graphics g, int x, int y) {
         // Rocket body (cylinder)
         g.setColor(Color.RED);
         g.fillRect(x + 10, y, 30, 80);  // Main body
@@ -160,7 +178,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         // Rocket exhaust (fire)
         g.setColor(Color.ORANGE);
         g.fillOval(x + 15, y + 80, 20, 20);  // Exhaust flame
-    }
+    }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -168,6 +186,9 @@ public class Main extends JPanel implements ActionListener, KeyListener {
             //ToDo
             for(Car car : listOfCars) {
                 car.move();
+            }
+            for (TrafficLight trafficLight : listOfTrafficLights) {
+                trafficLight.time();
             }
         }
         repaint();

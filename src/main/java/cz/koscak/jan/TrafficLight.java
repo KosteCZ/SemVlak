@@ -6,14 +6,19 @@ public class TrafficLight {
 
     private int x, y;
     private Light state;
+    private int timeToNextStateChange = 100;
 
     public TrafficLight(int x, int y) {
-        this.x = x;
-        this.y = y;
-        state = Light.RED;
+        this(x, y, Light.RED);
     }
 
-    enum Light {
+    public TrafficLight(int x, int y, Light state) {
+        this.x = x;
+        this.y = y;
+        this.state = state;
+    }
+
+    public enum Light {
         RED, RED_YELLOW, YELLOW, GREEN;
     }
 
@@ -23,6 +28,32 @@ public class TrafficLight {
 
     public int getY() {
         return y;
+    }
+
+    public void time() {
+        timeToNextStateChange--;
+        if (timeToNextStateChange <= 0) {
+            if (state == Light.RED) {
+                state = Light.RED_YELLOW;
+                timeToNextStateChange = 15;
+                return;
+            }
+            if (state == Light.RED_YELLOW) {
+                state = Light.GREEN;
+                timeToNextStateChange = 100;
+                return;
+            }
+            if (state == Light.GREEN) {
+                state = Light.YELLOW;
+                timeToNextStateChange = 15;
+                return;
+            }
+            if (state == Light.YELLOW) {
+                state = Light.RED;
+                timeToNextStateChange = 100;
+                return;
+            }
+        }
     }
 
     public Image getImage() {

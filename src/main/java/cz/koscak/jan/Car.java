@@ -25,8 +25,10 @@ public class Car {
 
         if (x < 200) vx = 0;
         if (x > 660) vx = 0;
-        if (y < 200) vy = 0;
-        if (y > 660) vy = 0;
+        //if (y < 200) vy = 0;
+        //if (y > 660) vy = 0;
+        if (y < 150) y = 710;
+        if (y > 710) y = 150;
     }
 
 }
