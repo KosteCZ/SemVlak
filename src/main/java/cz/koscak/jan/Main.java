@@ -77,12 +77,21 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         super.paintComponent(g);
 
         // Draw Moon
-        g.setColor(Color.GRAY);
-        g.fillOval(moonX, moonY, 100, 100);  // Simple moon at the top
+        //g.setColor(Color.GRAY);
+        //g.fillOval(moonX, moonY, 100, 100);  // Simple moon at the top
 
         /*g.setColor(Color.GRAY);
         g.drawLine(100, 200, 100, HEIGHT - 200);
         g.drawLine(150, 200, 150, HEIGHT - 200);*/
+
+        /*g.setColor(Color.DARK_GRAY);
+        for (int i = 1; i < 12; i++) {
+            g.drawLine(50 * i, 0, 50 * i, HEIGHT );
+        }
+        for (int i = 1; i < 18; i++) {
+            //g.drawLine(0,50 * i, WIDTH, 50 * i );
+            g.drawLine(0,50 * i, 550, 50 * i );
+        }*/
 
 
         /*g.drawImage(getImage(Image.TRAFFIC_LIGHTS_RED), 60, 352, this);
@@ -96,19 +105,23 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         }
 
 
+        g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 150, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 200, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 250, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 300, this);
-        g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 350, this);
+        g.drawImage(Images.rotate(getImage(Image.ROAD_VERTICAL_NEAR_CROSS_ROAD_UP), 180.0), 100, 350, this);
         g.drawImage(getImage(Image.ROAD_CROSSROAD), 100, 400, this);
-        g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 450, this);
+        g.drawImage(getImage(Image.ROAD_VERTICAL_NEAR_CROSS_ROAD_UP), 100, 450, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 500, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 550, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 600, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 650, this);
+        g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 700, this);
 
-        g.drawImage(getImage(Image.ROAD_HORIZONTAL), 50, 400, this);
-        g.drawImage(getImage(Image.ROAD_HORIZONTAL), 150, 400, this);
+        //g.drawImage(getImage(Image.ROAD_HORIZONTAL), 50, 400, this);
+        //g.drawImage(getImage(Image.ROAD_HORIZONTAL), 150, 400, this);
+        g.drawImage(Images.rotate(getImage(Image.ROAD_VERTICAL_NEAR_CROSS_ROAD_UP), 90.0), 50, 400, this);
+        g.drawImage(Images.rotate(getImage(Image.ROAD_VERTICAL_NEAR_CROSS_ROAD_UP), 270.0), 150, 400, this);
 
         //g.drawImage(getImage(Image.CAR_1), 100, 650, this);
         //g.drawImage(getImage(Image.CAR_1), 125, 650, this);
@@ -117,8 +130,9 @@ public class Main extends JPanel implements ActionListener, KeyListener {
             g.drawImage(getImage(Image.CAR_1), car.getX(), car.getY(), this);
         }
 
-        g.drawImage(getImage(Image.TUNNEL_VERTICAL), 100, 150, this);
-        g.drawImage(getImage(Image.TUNNEL_VERTICAL), 100, 700, this);
+
+        g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 180.0), 100, 150, this);
+        g.drawImage(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 100, 700, this);
 
         // Draw rocket (more realistic rocket design)
         //drawRocket(g, ROCKET_X, rocketY);
