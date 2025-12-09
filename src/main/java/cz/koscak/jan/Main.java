@@ -17,6 +17,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
     private final Images images;
     private java.util.List<Car> listOfCars;
     private java.util.List<TrafficLight> listOfTrafficLights;
+    private java.util.List<TrafficStop> listOfTrafficStops;
 
     // Moon position
     private int moonX = WIDTH / 2 - 50;
@@ -50,6 +51,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
     private void loadCars() {
         listOfCars = new ArrayList<>();
+
         listOfCars.add(new Car(100, 300, 0, 1));
         listOfCars.add(new Car(125, 300, 0, -1));
         listOfCars.add(new Car(100, 600, 0, 1));
@@ -58,10 +60,23 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
     private void loadTrafficLights() {
         listOfTrafficLights = new ArrayList<>();
-        listOfTrafficLights.add(new TrafficLight(60, 352, TrafficLight.Light.GREEN));
-        listOfTrafficLights.add(new TrafficLight(160, 352, TrafficLight.Light.RED));
-        listOfTrafficLights.add(new TrafficLight(60, 452, TrafficLight.Light.RED));
-        listOfTrafficLights.add(new TrafficLight(160, 452, TrafficLight.Light.GREEN));
+        listOfTrafficStops = new ArrayList<>();
+        // TOP LEFT
+        final TrafficLight trafficLight1 = new TrafficLight(60, 352, TrafficLight.Light.GREEN);
+        listOfTrafficLights.add(trafficLight1);
+        listOfTrafficStops.add(new TrafficStop(100, 350, 0, 1, trafficLight1));
+        // TOP RIGHT
+        final TrafficLight trafficLight2 = new TrafficLight(160, 352, TrafficLight.Light.RED);
+        listOfTrafficLights.add(trafficLight2);
+        listOfTrafficStops.add(new TrafficStop(150, 400, -1, 0, trafficLight2));
+        // BOTTOM LEFT
+        final TrafficLight trafficLight3 = new TrafficLight(60, 452, TrafficLight.Light.RED);
+        listOfTrafficLights.add(trafficLight3);
+        listOfTrafficStops.add(new TrafficStop(50, 425, 1, 0, trafficLight3));
+        // BOTTOM RIGHT
+        final TrafficLight trafficLight4 = new TrafficLight(160, 452, TrafficLight.Light.GREEN);
+        listOfTrafficLights.add(trafficLight4);
+        listOfTrafficStops.add(new TrafficStop(125, 450,  0,-1, trafficLight4));
     }
 
     public static void main(String[] args) {
@@ -199,7 +214,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         if (!gamePaused && !gameWon && !gameOver) {  // Only update game logic when not paused or won/over
             //ToDo
             for(Car car : listOfCars) {
-                car.move();
+                car.move(listOfTrafficStops);
             }
             for (TrafficLight trafficLight : listOfTrafficLights) {
                 trafficLight.time();

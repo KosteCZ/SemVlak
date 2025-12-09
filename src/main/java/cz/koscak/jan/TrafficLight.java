@@ -30,6 +30,10 @@ public class TrafficLight {
         return y;
     }
 
+    public Light getState() {
+        return state;
+    }
+
     public void time() {
         timeToNextStateChange--;
         if (timeToNextStateChange <= 0) {

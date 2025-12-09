@@ -1,5 +1,7 @@
 package cz.koscak.jan;
 
+import java.util.List;
+
 public class Car {
 
     private int x, y, vx, vy;
@@ -19,9 +21,26 @@ public class Car {
         return y;
     }
 
-    public void move() {
-        x = x + vx;
-        y = y + vy;
+    public int getVX() {
+        return vx;
+    }
+
+    public int getVY() {
+        return vy;
+    }
+
+    public void move(List<TrafficStop> listOfTrafficStops) {
+        boolean stop = false;
+        for (TrafficStop trafficStop : listOfTrafficStops) {
+            if (trafficStop.stop(this)) {
+                stop = true;
+                System.out.println("!!! STOP: " + trafficStop);
+            }
+        }
+        if (!stop) {
+            x = x + vx;
+            y = y + vy;
+        }
 
         if (x < 200) vx = 0;
         if (x > 660) vx = 0;
