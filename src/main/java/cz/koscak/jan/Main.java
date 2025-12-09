@@ -16,6 +16,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
     private final Timer timer;
     private final Images images;
     private java.util.List<Car> listOfCars;
+    private java.util.List<Train> listOfTrains;
     private java.util.List<TrafficLight> listOfTrafficLights;
     private java.util.List<TrafficStop> listOfTrafficStops;
 
@@ -46,6 +47,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
         images = new Images();
         loadCars();
+        loadTrains();
         loadTrafficLights();
     }
 
@@ -56,6 +58,13 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         listOfCars.add(new Car(125, 300, 0, -1));
         listOfCars.add(new Car(100, 600, 0, 1));
         listOfCars.add(new Car(125, 600, 0, -1));
+    }
+
+    private void loadTrains() {
+        listOfTrains = new ArrayList<>();
+
+        listOfTrains.add(new Train(200, 600, -2, 0, true));
+        listOfTrains.add(new Train(250, 600, -2, 0, false));
     }
 
     private void loadTrafficLights() {
@@ -129,9 +138,19 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         g.drawImage(getImage(Image.ROAD_VERTICAL_NEAR_CROSS_ROAD_UP), 100, 450, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 500, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 550, this);
-        g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 600, this);
+        g.drawImage(getImage(Image.ROAD_VERTICAL_RAILS_HORIZONTAL), 100, 600, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 650, this);
         g.drawImage(getImage(Image.ROAD_VERTICAL), 100, 700, this);
+
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 0, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 50, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 150, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 200, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 250, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 300, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 350, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 400, 600, this);
+
 
         //g.drawImage(getImage(Image.ROAD_HORIZONTAL), 50, 400, this);
         //g.drawImage(getImage(Image.ROAD_HORIZONTAL), 150, 400, this);
@@ -145,9 +164,19 @@ public class Main extends JPanel implements ActionListener, KeyListener {
             g.drawImage(getImage(Image.CAR_1), car.getX(), car.getY(), this);
         }
 
+        for (Train train : listOfTrains) {
+            BufferedImage image = getImage(Image.TRAIN_CARGO_1);
+            if (train.isLocomotive()) {
+                image = getImage(Image.TRAIN_LOCO_1);
+            }
+            g.drawImage(Images.rotate(image, 270.0), train.getX(), train.getY(), this);
+        }
 
         g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 180.0), 100, 150, this);
         g.drawImage(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 100, 700, this);
+
+        g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 90.0), 0, 600, this);
+        g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 270.0), 400, 600, this);
 
         // Draw rocket (more realistic rocket design)
         //drawRocket(g, ROCKET_X, rocketY);
@@ -218,6 +247,9 @@ public class Main extends JPanel implements ActionListener, KeyListener {
             }
             for (TrafficLight trafficLight : listOfTrafficLights) {
                 trafficLight.time();
+            }
+            for(Train train : listOfTrains) {
+                train.move(listOfTrafficStops);
             }
         }
         repaint();
