@@ -48,14 +48,25 @@ public class Images {
                 cos = Math.abs(Math.cos(Math.toRadians(angle)));
         int w = bimg.getWidth();
         int h = bimg.getHeight();
-        int neww = (int) Math.floor(w*cos + h*sin),
-                newh = (int) Math.floor(h*cos + w*sin);
-        BufferedImage rotated = new BufferedImage(neww, newh, bimg.getType());
+        int newW = (int) Math.floor(w*cos + h*sin),
+                newH = (int) Math.floor(h*cos + w*sin);
+        BufferedImage rotated = new BufferedImage(newW, newH, bimg.getType());
         Graphics2D graphic = rotated.createGraphics();
-        graphic.translate((neww-w)/2, (newh-h)/2);
+        graphic.translate((newW-w)/2, (newH-h)/2);
         graphic.rotate(Math.toRadians(angle), w/2, h/2);
         graphic.drawRenderedImage(bimg, null);
         graphic.dispose();
         return rotated;
+    }
+
+    public static BufferedImage resize(BufferedImage image, int newW, int newH) {
+        java.awt.Image temporaryImage = image.getScaledInstance(newW, newH, java.awt.Image.SCALE_SMOOTH);
+        BufferedImage resizedImage = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2d = resizedImage.createGraphics();
+        g2d.drawImage(temporaryImage, 0, 0, null);
+        g2d.dispose();
+
+        return resizedImage;
     }
 }

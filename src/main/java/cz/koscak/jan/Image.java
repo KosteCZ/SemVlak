@@ -17,6 +17,8 @@ public enum Image {
     ROAD_CROSSROAD("road-crossroad"),
     RAILS_HORIZONTAL("rails-horizontal"),
     ROAD_VERTICAL_RAILS_HORIZONTAL("road-vertical-rails-horizontal"),
+    RAILROAD_CROSSING("railroad-crossing"),
+    RAILROAD_CROSSING_BAR("railroad-crossing-bar-2"),
     TUNNEL_VERTICAL("tunnel-vertical"),
     TUNNEL_VERTICAL_UP_ENTRY("tunnel-vertical-up-entry"),
     TUNNEL_VERTICAL_UP_ENTRY_2("tunnel-vertical-up-entry-2");

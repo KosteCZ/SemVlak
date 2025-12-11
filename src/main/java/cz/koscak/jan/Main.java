@@ -19,6 +19,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
     private java.util.List<Train> listOfTrains;
     private java.util.List<TrafficLight> listOfTrafficLights;
     private java.util.List<TrafficStop> listOfTrafficStops;
+    private java.util.List<RailroadCrossing> listOfRailroadCrossings;
 
     // Moon position
     private int moonX = WIDTH / 2 - 50;
@@ -49,6 +50,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         loadCars();
         loadTrains();
         loadTrafficLights();
+        loadRailroadCrossings();
     }
 
     private void loadCars() {
@@ -58,6 +60,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         listOfCars.add(new Car(125, 300, 0, -1));
         listOfCars.add(new Car(100, 600, 0, 1));
         listOfCars.add(new Car(125, 600, 0, -1));
+        listOfCars.add(new Car(100, 550, 0, 1));
     }
 
     private void loadTrains() {
@@ -86,6 +89,20 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         final TrafficLight trafficLight4 = new TrafficLight(160, 452, TrafficLight.Light.GREEN);
         listOfTrafficLights.add(trafficLight4);
         listOfTrafficStops.add(new TrafficStop(125, 450,  0,-1, trafficLight4));
+    }
+
+    private void loadRailroadCrossings() {
+        listOfRailroadCrossings = new ArrayList<>();
+
+        final RailroadCrossing railroadCrossing1 = new RailroadCrossing(
+                100, 550, 0, 1, RailroadCrossing.Light.RED,
+                50, 250, 600, 625);
+        listOfRailroadCrossings.add(railroadCrossing1);
+
+        final RailroadCrossing railroadCrossing2 = new RailroadCrossing(
+                125, 650, 0, -1, RailroadCrossing.Light.RED,
+                50, 250, 600, 625);
+        listOfRailroadCrossings.add(railroadCrossing2);
     }
 
     public static void main(String[] args) {
@@ -178,6 +195,18 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 90.0), 0, 600, this);
         g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 270.0), 400, 600, this);
 
+        g.drawImage(Images.rotate(getImage(Image.RAILROAD_CROSSING), 0.0), 50, 550, this);
+        BufferedImage imageOfBar1 = getImage(Image.RAILROAD_CROSSING_BAR);
+        BufferedImage imageOfBarResized1 = Images.resize(imageOfBar1,
+                imageOfBar1.getWidth() - listOfRailroadCrossings.get(0).getBarState(), imageOfBar1.getHeight());
+        g.drawImage(Images.rotate(imageOfBarResized1, 0.0), 50 + (listOfRailroadCrossings.get(0).getBarState() / 3), 550, this);
+
+        g.drawImage(Images.rotate(getImage(Image.RAILROAD_CROSSING), 180.0), 150, 650, this);
+        BufferedImage imageOfBar2 = getImage(Image.RAILROAD_CROSSING_BAR);
+        BufferedImage imageOfBarResized2 = Images.resize(imageOfBar2,
+                imageOfBar2.getWidth() - listOfRailroadCrossings.get(1).getBarState(), imageOfBar2.getHeight());
+        g.drawImage(Images.rotate(imageOfBarResized2, 180.0), 100 + listOfRailroadCrossings.get(1).getBarState() - listOfRailroadCrossings.get(1).getBarState() / 3, 650, this);
+
         // Draw rocket (more realistic rocket design)
         //drawRocket(g, ROCKET_X, rocketY);
 
@@ -242,8 +271,11 @@ public class Main extends JPanel implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) {
         if (!gamePaused && !gameWon && !gameOver) {  // Only update game logic when not paused or won/over
             //ToDo
+            for(RailroadCrossing railroadCrossing : listOfRailroadCrossings) {
+                railroadCrossing.checkState(listOfTrains);
+            }
             for(Car car : listOfCars) {
-                car.move(listOfTrafficStops);
+                car.move(listOfTrafficStops, listOfRailroadCrossings);
             }
             for (TrafficLight trafficLight : listOfTrafficLights) {
                 trafficLight.time();

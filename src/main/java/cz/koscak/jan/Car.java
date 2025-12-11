@@ -29,10 +29,16 @@ public class Car {
         return vy;
     }
 
-    public void move(List<TrafficStop> listOfTrafficStops) {
+    public void move(List<TrafficStop> listOfTrafficStops, List<RailroadCrossing> listOfRailroadCrossings) {
         boolean stop = false;
         for (TrafficStop trafficStop : listOfTrafficStops) {
             if (trafficStop.stop(this)) {
+                stop = true;
+                //System.out.println("!!! STOP: " + trafficStop);
+            }
+        }
+        for (RailroadCrossing railroadCrossing : listOfRailroadCrossings) {
+            if (railroadCrossing.stop(this)) {
                 stop = true;
                 //System.out.println("!!! STOP: " + trafficStop);
             }
