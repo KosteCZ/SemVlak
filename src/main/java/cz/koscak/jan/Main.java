@@ -72,11 +72,15 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
         final Train locomotive1 = new Train(200, 600, -2, 0, null);
         listOfTrains.add(locomotive1);
-        listOfTrains.add(new Train(250, 600, -2, 0, locomotive1));
+        final Train cargoTrain1 = new Train(250, 600, -2, 0, locomotive1);
+        listOfTrains.add(cargoTrain1);
+        locomotive1.setCargoTrain(cargoTrain1);
 
         final Train locomotive2 = new Train(400, 625, 2, 0, null);
         listOfTrains.add(locomotive2);
-        listOfTrains.add(new Train(350, 625, 2, 0, locomotive2));
+        final Train cargoTrain2 = new Train(350, 625, 2, 0, locomotive2);
+        listOfTrains.add(cargoTrain2);
+        locomotive2.setCargoTrain(cargoTrain2);
     }
 
     private void loadTrafficLights() {
@@ -220,9 +224,12 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         }
 
         for (Train train : listOfTrains) {
-            BufferedImage image = getImage(Image.TRAIN_CARGO_1);
-            if (train.isLocomotive()) {
-                image = getImage(Image.TRAIN_LOCO_1);
+            BufferedImage image = getImage(Image.TRAIN_LOCO_1);
+            if (!train.isLocomotive()) {
+                image = getImage(Image.TRAIN_CARGO_1);
+                if (train.getCargo() == TrainCargo.STONE) {
+                    image = getImage(Image.TRAIN_CARGO_STONE);
+                }
             }
             if (train.getVX() < 0) {
                 g.drawImage(Images.rotate(image, 270.0), train.getX(), train.getY(), this);

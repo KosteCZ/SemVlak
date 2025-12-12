@@ -11,6 +11,7 @@ public enum Image {
     CAR_3("car-3"),
     TRAIN_LOCO_1("train-loco-1"),
     TRAIN_CARGO_1("train-cargo-1"),
+    TRAIN_CARGO_STONE("train-cargo-stone"),
     ROAD_VERTICAL("road-vertical"),
     ROAD_HORIZONTAL("road-horizontal"),
     ROAD_VERTICAL_NEAR_CROSS_ROAD_UP("road-vertical-near-cross-road-up"),
