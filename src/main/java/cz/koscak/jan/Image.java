@@ -24,7 +24,11 @@ public enum Image {
     RAILROAD_CROSSING_BAR("railroad-crossing-bar-2"),
     TUNNEL_VERTICAL("tunnel-vertical"),
     TUNNEL_VERTICAL_UP_ENTRY("tunnel-vertical-up-entry"),
-    TUNNEL_VERTICAL_UP_ENTRY_2("tunnel-vertical-up-entry-2");
+    TUNNEL_VERTICAL_UP_ENTRY_2("tunnel-vertical-up-entry-2"),
+    HOUSE_1("house-1"),
+    OFFICE_1("office-1"),
+    TRAIN_STATION_1("train-station-1"),
+    RAILS_HORIZONTAL_PLATFORM("rails-horizontal-platform");
 
     private final String name;
 
