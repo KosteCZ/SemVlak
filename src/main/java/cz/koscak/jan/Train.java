@@ -49,10 +49,8 @@ public class Train {
             y = y + vy;
         }
 
-        if (x < 0) x = 400;
-        if (x > 400) x = 0;
-        //if (y < 200) vy = 0;
-        //if (y > 660) vy = 0;
+        if (x < 0) x = 800;
+        if (x > 800) x = 0;
         if (y < 0) y = 700;
         if (y > 700) y = 0;
     }

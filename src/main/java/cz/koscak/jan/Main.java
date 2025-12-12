@@ -70,6 +70,9 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
         listOfTrains.add(new Train(200, 600, -2, 0, true));
         listOfTrains.add(new Train(250, 600, -2, 0, false));
+
+        listOfTrains.add(new Train(400, 625, 2, 0, true));
+        listOfTrains.add(new Train(350, 625, 2, 0, false));
     }
 
     private void loadTrafficLights() {
@@ -98,12 +101,12 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
         final RailroadCrossing railroadCrossing1 = new RailroadCrossing(
                 100, 550, 0, 1, RailroadCrossing.State.RED,
-                50, 250, 600, 625);
+                0, 250, 600, 625);
         listOfRailroadCrossings.add(railroadCrossing1);
 
         final RailroadCrossing railroadCrossing2 = new RailroadCrossing(
                 125, 650, 0, -1, RailroadCrossing.State.RED,
-                50, 250, 600, 625);
+                0, 250, 600, 625);
         listOfRailroadCrossings.add(railroadCrossing2);
     }
 
@@ -169,6 +172,14 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         g.drawImage(getImage(Image.RAILS_HORIZONTAL), 300, 600, this);
         g.drawImage(getImage(Image.RAILS_HORIZONTAL), 350, 600, this);
         g.drawImage(getImage(Image.RAILS_HORIZONTAL), 400, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 450, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 500, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 550, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 600, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 650, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 700, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 750, 600, this);
+        g.drawImage(getImage(Image.RAILS_HORIZONTAL), 800, 600, this);
 
 
         //g.drawImage(getImage(Image.ROAD_HORIZONTAL), 50, 400, this);
@@ -188,7 +199,11 @@ public class Main extends JPanel implements ActionListener, KeyListener {
             if (train.isLocomotive()) {
                 image = getImage(Image.TRAIN_LOCO_1);
             }
-            g.drawImage(Images.rotate(image, 270.0), train.getX(), train.getY(), this);
+            if (train.getVX() < 0) {
+                g.drawImage(Images.rotate(image, 270.0), train.getX(), train.getY(), this);
+            } else {
+                g.drawImage(Images.rotate(image, 90.0), train.getX(), train.getY(), this);
+            }
         }
 
         for (Smoke smoke : listOfSmokes) {
@@ -201,22 +216,22 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         g.drawImage(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 100, 700, this);
 
         g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 90.0), 0, 600, this);
-        g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 270.0), 400, 600, this);
+        g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 270.0), 800, 600, this);
 
-        RailroadCrossing railroadCrossing1 = listOfRailroadCrossings.get(0);
-        BufferedImage imageOfRailroadCrossing1 = getImage(railroadCrossing1.getImage());
+        final BufferedImage imageOfBar = getImage(Image.RAILROAD_CROSSING_BAR);
+
+        final RailroadCrossing railroadCrossing1 = listOfRailroadCrossings.get(0);
+        final BufferedImage imageOfRailroadCrossing1 = getImage(railroadCrossing1.getImage());
         g.drawImage(Images.rotate(imageOfRailroadCrossing1, 0.0), 50, 550, this);
-        BufferedImage imageOfBar1 = getImage(Image.RAILROAD_CROSSING_BAR);
-        BufferedImage imageOfBarResized1 = Images.resize(imageOfBar1,
-                imageOfBar1.getWidth() - railroadCrossing1.getBarState(), imageOfBar1.getHeight());
+        final BufferedImage imageOfBarResized1 = Images.resize(imageOfBar,
+                imageOfBar.getWidth() - railroadCrossing1.getBarState(), imageOfBar.getHeight());
         g.drawImage(Images.rotate(imageOfBarResized1, 0.0), 50 + (railroadCrossing1.getBarState() / 3), 550, this);
 
-        RailroadCrossing railroadCrossing2 = listOfRailroadCrossings.get(1);
-        BufferedImage imageOfRailroadCrossing2 = getImage(railroadCrossing2.getImage());
+        final RailroadCrossing railroadCrossing2 = listOfRailroadCrossings.get(1);
+        final BufferedImage imageOfRailroadCrossing2 = getImage(railroadCrossing2.getImage());
         g.drawImage(Images.rotate(imageOfRailroadCrossing2, 180.0), 150, 650, this);
-        BufferedImage imageOfBar2 = getImage(Image.RAILROAD_CROSSING_BAR);
-        BufferedImage imageOfBarResized2 = Images.resize(imageOfBar2,
-                imageOfBar2.getWidth() - listOfRailroadCrossings.get(1).getBarState(), imageOfBar2.getHeight());
+        final BufferedImage imageOfBarResized2 = Images.resize(imageOfBar,
+                imageOfBar.getWidth() - listOfRailroadCrossings.get(1).getBarState(), imageOfBar.getHeight());
         g.drawImage(Images.rotate(imageOfBarResized2, 180.0), 100 + listOfRailroadCrossings.get(1).getBarState() - listOfRailroadCrossings.get(1).getBarState() / 3, 650, this);
 
         // Draw rocket (more realistic rocket design)
