@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Main extends JPanel implements ActionListener, KeyListener {
 
@@ -98,12 +97,12 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         listOfRailroadCrossings = new ArrayList<>();
 
         final RailroadCrossing railroadCrossing1 = new RailroadCrossing(
-                100, 550, 0, 1, RailroadCrossing.Light.RED,
+                100, 550, 0, 1, RailroadCrossing.State.RED,
                 50, 250, 600, 625);
         listOfRailroadCrossings.add(railroadCrossing1);
 
         final RailroadCrossing railroadCrossing2 = new RailroadCrossing(
-                125, 650, 0, -1, RailroadCrossing.Light.RED,
+                125, 650, 0, -1, RailroadCrossing.State.RED,
                 50, 250, 600, 625);
         listOfRailroadCrossings.add(railroadCrossing2);
     }
@@ -204,13 +203,17 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 90.0), 0, 600, this);
         g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 270.0), 400, 600, this);
 
-        g.drawImage(Images.rotate(getImage(Image.RAILROAD_CROSSING), 0.0), 50, 550, this);
+        RailroadCrossing railroadCrossing1 = listOfRailroadCrossings.get(0);
+        BufferedImage imageOfRailroadCrossing1 = getImage(railroadCrossing1.getImage());
+        g.drawImage(Images.rotate(imageOfRailroadCrossing1, 0.0), 50, 550, this);
         BufferedImage imageOfBar1 = getImage(Image.RAILROAD_CROSSING_BAR);
         BufferedImage imageOfBarResized1 = Images.resize(imageOfBar1,
-                imageOfBar1.getWidth() - listOfRailroadCrossings.get(0).getBarState(), imageOfBar1.getHeight());
-        g.drawImage(Images.rotate(imageOfBarResized1, 0.0), 50 + (listOfRailroadCrossings.get(0).getBarState() / 3), 550, this);
+                imageOfBar1.getWidth() - railroadCrossing1.getBarState(), imageOfBar1.getHeight());
+        g.drawImage(Images.rotate(imageOfBarResized1, 0.0), 50 + (railroadCrossing1.getBarState() / 3), 550, this);
 
-        g.drawImage(Images.rotate(getImage(Image.RAILROAD_CROSSING), 180.0), 150, 650, this);
+        RailroadCrossing railroadCrossing2 = listOfRailroadCrossings.get(1);
+        BufferedImage imageOfRailroadCrossing2 = getImage(railroadCrossing2.getImage());
+        g.drawImage(Images.rotate(imageOfRailroadCrossing2, 180.0), 150, 650, this);
         BufferedImage imageOfBar2 = getImage(Image.RAILROAD_CROSSING_BAR);
         BufferedImage imageOfBarResized2 = Images.resize(imageOfBar2,
                 imageOfBar2.getWidth() - listOfRailroadCrossings.get(1).getBarState(), imageOfBar2.getHeight());
@@ -281,6 +284,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         if (!gamePaused && !gameWon && !gameOver) {  // Only update game logic when not paused or won/over
             //ToDo
             for(RailroadCrossing railroadCrossing : listOfRailroadCrossings) {
+                railroadCrossing.time();
                 railroadCrossing.checkState(listOfTrains);
             }
             for(Car car : listOfCars) {
