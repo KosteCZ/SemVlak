@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Main extends JPanel implements ActionListener, KeyListener {
 
@@ -20,6 +21,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
     private java.util.List<TrafficLight> listOfTrafficLights;
     private java.util.List<TrafficStop> listOfTrafficStops;
     private java.util.List<RailroadCrossing> listOfRailroadCrossings;
+    private java.util.List<Smoke> listOfSmokes;
 
     // Moon position
     private int moonX = WIDTH / 2 - 50;
@@ -51,6 +53,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         loadTrains();
         loadTrafficLights();
         loadRailroadCrossings();
+        listOfSmokes = new ArrayList<>();
     }
 
     private void loadCars() {
@@ -189,6 +192,12 @@ public class Main extends JPanel implements ActionListener, KeyListener {
             g.drawImage(Images.rotate(image, 270.0), train.getX(), train.getY(), this);
         }
 
+        for (Smoke smoke : listOfSmokes) {
+            int shift = 4 - (smoke.getTimeToDisappear() / 5);
+            g.setColor(smoke.getColor());
+            g.drawOval(smoke.getX() - shift, smoke.getY() - shift, 1 + shift * 2, 1 + shift * 2);
+        }
+
         g.drawImage(Images.rotate(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 180.0), 100, 150, this);
         g.drawImage(getImage(Image.TUNNEL_VERTICAL_UP_ENTRY_2), 100, 700, this);
 
@@ -282,7 +291,14 @@ public class Main extends JPanel implements ActionListener, KeyListener {
             }
             for(Train train : listOfTrains) {
                 train.move(listOfTrafficStops);
+                if (train.isLocomotive()) {
+                    listOfSmokes.add(new Smoke(17 + train.getX(), 12 + train.getY(), 20, Color.LIGHT_GRAY));
+                }
             }
+            for(Smoke smoke : listOfSmokes) {
+                smoke.time();
+            }
+            listOfSmokes.removeIf(smoke -> smoke.getTimeToDisappear() <= 0);
         }
         repaint();
     }
