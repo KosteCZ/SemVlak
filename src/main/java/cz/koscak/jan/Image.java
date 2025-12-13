@@ -29,7 +29,8 @@ public enum Image {
     HOUSE_1("house-1"),
     OFFICE_1("office-1"),
     TRAIN_STATION_1("train-station-1"),
-    RAILS_HORIZONTAL_PLATFORM("rails-horizontal-platform");
+    RAILS_HORIZONTAL_PLATFORM("rails-horizontal-platform"),
+    TREES("trees");
 
     private final String name;
 

@@ -282,6 +282,32 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         g.drawImage(getImage(Image.HOUSE_1), 250, 450, this);
         g.drawImage(getImage(Image.OFFICE_1), 300, 450, this);
 
+        g.drawImage(getImage(Image.HOUSE_1), 450, 350, this);
+        g.drawImage(getImage(Image.OFFICE_1), 500, 350, this);
+        g.drawImage(getImage(Image.HOUSE_1), 450, 450, this);
+        g.drawImage(getImage(Image.OFFICE_1), 500, 450, this);
+
+        g.drawImage(getImage(Image.OFFICE_1), 550, 350, this);
+        g.drawImage(getImage(Image.HOUSE_1), 600, 350, this);
+        g.drawImage(getImage(Image.OFFICE_1), 550, 450, this);
+        g.drawImage(getImage(Image.HOUSE_1), 600, 450, this);
+
+        g.drawImage(getImage(Image.TREES),   0,   0, this);
+        g.drawImage(getImage(Image.TREES),   0,  50, this);
+        g.drawImage(getImage(Image.TREES),   0, 100, this);
+        g.drawImage(getImage(Image.TREES),   0, 150, this);
+        g.drawImage(getImage(Image.TREES),  50,   0, this);
+        g.drawImage(getImage(Image.TREES),  50,  50, this);
+        g.drawImage(getImage(Image.TREES),  50, 100, this);
+        g.drawImage(getImage(Image.TREES), 100,   0, this);
+        g.drawImage(getImage(Image.TREES), 100,  50, this);
+        g.drawImage(getImage(Image.TREES), 150,   0, this);
+        g.drawImage(getImage(Image.TREES), 150,  50, this);
+        g.drawImage(getImage(Image.TREES), 200,   0, this);
+        g.drawImage(getImage(Image.TREES), 250,   0, this);
+        g.drawImage(getImage(Image.TREES), 300,   0, this);
+        g.drawImage(getImage(Image.TREES), 350,   0, this);
+
 
         for (Car car : listOfCars) {
             final BufferedImage image = getImage(car.getImage());
