@@ -32,18 +32,30 @@ public class Car {
         return vy;
     }
 
-    public void move(List<TrafficStop> listOfTrafficStops, List<RailroadCrossing> listOfRailroadCrossings) {
+    public void move(List<TrafficStop> listOfTrafficStops, List<RailroadCrossing> listOfRailroadCrossings,
+            List<Car> listOfCars) {
         boolean stop = false;
         for (TrafficStop trafficStop : listOfTrafficStops) {
             if (trafficStop.stop(this)) {
                 stop = true;
                 //System.out.println("!!! STOP: " + trafficStop);
+                return;
             }
         }
         for (RailroadCrossing railroadCrossing : listOfRailroadCrossings) {
             if (railroadCrossing.stop(this)) {
                 stop = true;
-                //System.out.println("!!! STOP: " + trafficStop);
+                //System.out.println("!!! STOP: " + railroadCrossing);
+                return;
+            }
+        }
+        for (Car car : listOfCars) {
+            int nextX = x + 50 * vx;
+            int nextY = y + 50 * vy;
+            if (car.getX() == nextX && car.getY() == nextY) {
+                stop = true;
+                //System.out.println("!!! STOP - WAIT FOR ANOTHER CAR: " + x +  "->" + nextX +  ", " + y + "->" + nextY);
+                return;
             }
         }
         if (!stop) {
@@ -53,8 +65,7 @@ public class Car {
 
         if (x < 0) x = 810;
         if (x > 810) x = 0;
-        //if (y < 200) vy = 0;
-        //if (y > 660) vy = 0;
+
         if (y < 150) y = 710;
         if (y > 710) y = 150;
     }

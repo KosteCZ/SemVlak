@@ -428,7 +428,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
                 railroadCrossing.checkState(listOfTrains);
             }
             for (Car car : listOfCars) {
-                car.move(listOfTrafficStops, listOfRailroadCrossings);
+                car.move(listOfTrafficStops, listOfRailroadCrossings, listOfCars);
             }
             for (TrafficLight trafficLight : listOfTrafficLights) {
                 trafficLight.time();
