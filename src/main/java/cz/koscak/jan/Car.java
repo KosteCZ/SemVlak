@@ -6,11 +6,14 @@ public class Car {
 
     private int x, y, vx, vy;
 
-    public Car(int x, int y, int vx, int vy) {
+    private final Image image;
+
+    public Car(int x, int y, int vx, int vy, Image image) {
         this.x = x;
         this.y = y;
         this.vx = vx;
         this.vy = vy;
+        this.image = image;
     }
 
     public int getX() {
@@ -48,12 +51,15 @@ public class Car {
             y = y + vy;
         }
 
-        if (x < 200) vx = 0;
-        if (x > 660) vx = 0;
+        if (x < 0) x = 810;
+        if (x > 810) x = 0;
         //if (y < 200) vy = 0;
         //if (y > 660) vy = 0;
         if (y < 150) y = 710;
         if (y > 710) y = 150;
     }
 
+    public Image getImage() {
+        return image;
+    }
 }

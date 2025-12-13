@@ -20,7 +20,8 @@ public class TrafficStop {
                     || (vy > 0 && car.getVY() > 0)
                     || (vy < 0 && car.getVY() < 0)) {
                 return trafficLight.getState().equals(TrafficLight.Light.RED)
-                        || trafficLight.getState().equals(TrafficLight.Light.RED_YELLOW);
+                        || trafficLight.getState().equals(TrafficLight.Light.RED_YELLOW)
+                        || trafficLight.getState().equals(TrafficLight.Light.YELLOW);
             }
         }
         return false;

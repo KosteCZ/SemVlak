@@ -39,7 +39,7 @@ public class TrafficLight {
         if (timeToNextStateChange <= 0) {
             if (state == Light.RED) {
                 state = Light.RED_YELLOW;
-                timeToNextStateChange = 15;
+                timeToNextStateChange = 40;
                 return;
             }
             if (state == Light.RED_YELLOW) {
@@ -49,7 +49,7 @@ public class TrafficLight {
             }
             if (state == Light.GREEN) {
                 state = Light.YELLOW;
-                timeToNextStateChange = 15;
+                timeToNextStateChange = 40;
                 return;
             }
             if (state == Light.YELLOW) {

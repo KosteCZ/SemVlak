@@ -43,18 +43,18 @@ public class Images {
         return images.get(image);
     }
 
-    public static BufferedImage rotate(BufferedImage bimg, Double angle) {
+    public static BufferedImage rotate(BufferedImage bImg, Double angle) {
         double sin = Math.abs(Math.sin(Math.toRadians(angle))),
                 cos = Math.abs(Math.cos(Math.toRadians(angle)));
-        int w = bimg.getWidth();
-        int h = bimg.getHeight();
+        int w = bImg.getWidth();
+        int h = bImg.getHeight();
         int newW = (int) Math.floor(w*cos + h*sin),
                 newH = (int) Math.floor(h*cos + w*sin);
-        BufferedImage rotated = new BufferedImage(newW, newH, bimg.getType());
+        BufferedImage rotated = new BufferedImage(newW, newH, bImg.getType());
         Graphics2D graphic = rotated.createGraphics();
         graphic.translate((newW-w)/2, (newH-h)/2);
         graphic.rotate(Math.toRadians(angle), w/2, h/2);
-        graphic.drawRenderedImage(bimg, null);
+        graphic.drawRenderedImage(bImg, null);
         graphic.dispose();
         return rotated;
     }
