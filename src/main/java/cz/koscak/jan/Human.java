@@ -6,6 +6,8 @@ public class Human {
 
     private int x, y, vx, vy;
 
+    private int imageStep = 0;
+
     private final Image image;
 
     public Human(int x, int y, int vx, int vy, Image image) {
@@ -61,6 +63,11 @@ public class Human {
         if (!stop) {
             x = x + vx;
             y = y + vy;
+
+            imageStep++;
+            if (imageStep > 7) {
+                imageStep = 0;
+            }
         }
 
         if (x < 250) vx = 1; //x = 625;
@@ -68,6 +75,10 @@ public class Human {
 
         if (y < 150) y = 710;
         if (y > 710) y = 150;
+    }
+
+    public int getImageStep() {
+        return imageStep;
     }
 
     public Image getImage() {

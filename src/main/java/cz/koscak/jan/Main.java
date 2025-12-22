@@ -62,7 +62,8 @@ public class Main extends JPanel implements ActionListener, KeyListener {
     private void loadHumans() {
         listOfHumans = new ArrayList<>();
 
-        listOfHumans.add(new Human(275, 500, 1, 0, Image.HUMAN));
+        listOfHumans.add(new Human(275, 500, 1, 0, Image.HUMAN_WALKING));
+        listOfHumans.add(new Human(300, 488, -1, 0, Image.HUMAN_WALKING));
     }
 
     private void loadCars() {
@@ -342,13 +343,14 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
 
         for (Human human : listOfHumans) {
-            final BufferedImage image = getImage(human.getImage());
-            double angle = 0.0;
-            /*if (human.getVY() > 0) angle = 180.0;
-            if (human.getVX() > 0) angle =  90.0;
-            if (human.getVX() < 0) angle = 270.0;*/
-            BufferedImage rotatedImage = Images.rotate(image, angle);
-            g.drawImage(rotatedImage, human.getX(), human.getY(), this);
+            BufferedImage image = getImage(human.getImage());
+
+            if (human.getImage().equals(Image.HUMAN_WALKING)) {
+                image = image.getSubimage((human.getImageStep() % 3) * 25, (human.getImageStep() / 3) * 25, 25, 25);
+            }
+
+            if (human.getVX() < 0) image = Images.mirrorHorizontally(image);
+            g.drawImage(image, human.getX(), human.getY(), this);
         }
 
         for (Car car : listOfCars) {

@@ -33,7 +33,8 @@ public enum Image {
     TREES("trees"),
     TREES_CORNER("trees-corner"),
     PAVEMENT_HORIZONTAL("pavement-horizontal"),
-    HUMAN("human-1");
+    HUMAN("human-1"),
+    HUMAN_WALKING("human-walking-3");
 
     private final String name;
 

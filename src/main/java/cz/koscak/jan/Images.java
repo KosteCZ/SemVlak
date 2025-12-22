@@ -69,4 +69,27 @@ public class Images {
 
         return resizedImage;
     }
+
+    public static BufferedImage mirrorHorizontally(BufferedImage image) {
+        return mirror(image, true);
+    }
+
+    public static BufferedImage mirrorVertically(BufferedImage image) {
+        return mirror(image, false);
+    }
+
+    public static BufferedImage mirror(BufferedImage image, boolean horizontally) {
+        BufferedImage mirrored = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = mirrored.createGraphics();
+        if (horizontally) {
+            g2d.scale(-1, 1);
+            g2d.translate(-image.getWidth(), 0);
+        } else {
+            g2d.scale(1, -1);
+            g2d.translate(0, -image.getHeight());
+        }
+        g2d.drawImage(image, 0, 0, null);
+        g2d.dispose();
+        return mirrored;
+    }
 }
