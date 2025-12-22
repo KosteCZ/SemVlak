@@ -296,17 +296,24 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         g.drawImage(getImage(Image.TREES),   0,  50, this);
         g.drawImage(getImage(Image.TREES),   0, 100, this);
         g.drawImage(getImage(Image.TREES),   0, 150, this);
+        g.drawImage(getImage(Image.TREES),   0, 200, this);
+        g.drawImage(getImage(Image.TREES_CORNER), 0,   250, this);
         g.drawImage(getImage(Image.TREES),  50,   0, this);
         g.drawImage(getImage(Image.TREES),  50,  50, this);
         g.drawImage(getImage(Image.TREES),  50, 100, this);
+        g.drawImage(getImage(Image.TREES_CORNER), 100,   100, this);
         g.drawImage(getImage(Image.TREES), 100,   0, this);
         g.drawImage(getImage(Image.TREES), 100,  50, this);
+        g.drawImage(getImage(Image.TREES_CORNER), 50,   150, this);
         g.drawImage(getImage(Image.TREES), 150,   0, this);
         g.drawImage(getImage(Image.TREES), 150,  50, this);
         g.drawImage(getImage(Image.TREES), 200,   0, this);
+        g.drawImage(getImage(Image.TREES), 200,   50, this);
+        g.drawImage(getImage(Image.TREES_CORNER), 250,   50, this);
         g.drawImage(getImage(Image.TREES), 250,   0, this);
         g.drawImage(getImage(Image.TREES), 300,   0, this);
         g.drawImage(getImage(Image.TREES), 350,   0, this);
+        g.drawImage(getImage(Image.TREES_CORNER), 400,   0, this);
 
 
         for (Car car : listOfCars) {
