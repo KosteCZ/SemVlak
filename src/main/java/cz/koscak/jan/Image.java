@@ -31,7 +31,9 @@ public enum Image {
     TRAIN_STATION_1("train-station-1"),
     RAILS_HORIZONTAL_PLATFORM("rails-horizontal-platform"),
     TREES("trees"),
-    TREES_CORNER("trees-corner");
+    TREES_CORNER("trees-corner"),
+    PAVEMENT_HORIZONTAL("pavement-horizontal"),
+    HUMAN("human-1");
 
     private final String name;
 

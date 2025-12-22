@@ -15,6 +15,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
     private boolean gameOver = false;  // Track if the game is over (exploded or landed on Moon)
     private final Timer timer;
     private final Images images;
+    private java.util.List<Human> listOfHumans;
     private java.util.List<Car> listOfCars;
     private java.util.List<Train> listOfTrains;
     private java.util.List<TrafficLight> listOfTrafficLights;
@@ -49,12 +50,19 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         add(restartButton);
 
         images = new Images();
+        loadHumans();
         loadCars();
         loadTrains();
         loadTrafficLights();
         loadRailroadCrossings();
         loadTrainStations();
         listOfSmokes = new ArrayList<>();
+    }
+
+    private void loadHumans() {
+        listOfHumans = new ArrayList<>();
+
+        listOfHumans.add(new Human(275, 500, 1, 0, Image.HUMAN));
     }
 
     private void loadCars() {
@@ -315,6 +323,33 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         g.drawImage(getImage(Image.TREES), 350,   0, this);
         g.drawImage(getImage(Image.TREES_CORNER), 400,   0, this);
 
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 250,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 275,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 300,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 325,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 350,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 375,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 400,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 425,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 450,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 475,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 500,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 525,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 550,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 575,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 600,   500, this);
+        g.drawImage(getImage(Image.PAVEMENT_HORIZONTAL), 625,   500, this);
+
+
+        for (Human human : listOfHumans) {
+            final BufferedImage image = getImage(human.getImage());
+            double angle = 0.0;
+            /*if (human.getVY() > 0) angle = 180.0;
+            if (human.getVX() > 0) angle =  90.0;
+            if (human.getVX() < 0) angle = 270.0;*/
+            BufferedImage rotatedImage = Images.rotate(image, angle);
+            g.drawImage(rotatedImage, human.getX(), human.getY(), this);
+        }
 
         for (Car car : listOfCars) {
             final BufferedImage image = getImage(car.getImage());
@@ -460,6 +495,11 @@ public class Main extends JPanel implements ActionListener, KeyListener {
                 railroadCrossing.time();
                 railroadCrossing.checkState(listOfTrains);
             }
+
+            for (Human human : listOfHumans) {
+                human.move(listOfTrafficStops, listOfRailroadCrossings, listOfHumans);
+            }
+
             for (Car car : listOfCars) {
                 car.move(listOfTrafficStops, listOfRailroadCrossings, listOfCars);
             }

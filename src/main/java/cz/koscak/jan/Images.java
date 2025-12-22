@@ -11,7 +11,7 @@ public class Images {
 
     public static BufferedImage imgSemafor;
 
-    private Map<Image, BufferedImage> images = new HashMap<>();
+    private final Map<Image, BufferedImage> images = new HashMap<>();
 
     public Images() {
         /*loadImage(Image.TRAFFIC_LIGHTS_RED);
