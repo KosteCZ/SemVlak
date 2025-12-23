@@ -13,6 +13,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
     private boolean gamePaused = true;  // Game starts in a paused state
     private boolean gameWon = false;  // Track if the rocket lands on the Moon
     private boolean gameOver = false;  // Track if the game is over (exploded or landed on Moon)
+    private boolean debugMode = false;  // Just for debugging purposes
     private final Timer timer;
     private final Images images;
     private java.util.List<Human> listOfHumans;
@@ -429,6 +430,43 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         g.drawImage(Images.rotate(imageOfBarResized4, 180.0), 700 + railroadCrossing4.getBarState() - railroadCrossing4.getBarState() / 3, 650, this);
 
 
+        if (debugMode) {
+
+            g.setColor(Color.DARK_GRAY);
+            for (int x = 0; x <= 1200; x = x + 25) {
+                g.drawLine(x, 0, x, 900);
+            }
+            for (int y = 0; y <= 900; y = y + 25) {
+                g.drawLine(0, y, 1200, y);
+            }
+
+            g.setColor(Color.BLACK);
+            for (int x = 0; x <= 1200; x = x + 50) {
+                g.drawLine(x, 0, x, 900);
+            }
+            for (int y = 0; y <= 900; y = y + 50) {
+                g.drawLine(0, y, 1200, y);
+            }
+
+            g.setColor(Color.BLACK);
+            for (int x = 0; x <= 1200; x = x + 100) {
+                g.drawLine(x-1, 0, x-1, 900);
+                g.drawLine(x, 0, x, 900);
+
+                g.drawString(String.valueOf(x), x + 2, 13);
+                if (x != 0) g.drawString(String.valueOf(x), x + 2, 895);
+            }
+            for (int y = 0; y <= 900; y = y + 100) {
+                g.drawLine(0, y-1, 1200, y-1);
+                g.drawLine(0, y, 1200, y);
+
+                g.drawString(String.valueOf(y), 2, y + 13);
+                if (y != 0) g.drawString(String.valueOf(y), 1177, y + 13);
+            }
+
+        }
+
+
         // Draw rocket (more realistic rocket design)
         //drawRocket(g, ROCKET_X, rocketY);
 
@@ -535,6 +573,10 @@ public class Main extends JPanel implements ActionListener, KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_SPACE /*&& fuel > 0*/ && !gamePaused && !gameWon && !gameOver) {
             //rocketSpeed = 10; // Boost the rocket upwards when space is pressed
             //fuel += 10;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_D /*&& gamePaused*/) {
+            //gamePaused = false;  // Unpause the game when Enter is pressed
+            debugMode = !debugMode;  // Unpause the game when Enter is pressed and vice versa
         }
     }
     @Override
